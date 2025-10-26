@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Harta obiectivelor turistice din rome</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    body, html { margin:0; padding:0; height:100%; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial; }
+    #map { height:100%; width:100%; }
+    .legend { position:absolute; bottom:10px; left:10px; background:white;
+      padding:8px 10px; border-radius:8px; font-size:13px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.15); line-height:1.4; }
+    .popup h3 { margin:0 0 6px; font-size:16px; }
+    .popup .row { margin:2px 0; }
+    .popup .lbl { opacity:0.7; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="legend">
+    <b>Legenda:</b><br>
+    🟢 Atracții<br>
+    🔵 Muzee<br>
+    🟣 Parcuri / Natură<br>
+    🟠 Biserici / Lăcașuri de cult<br>
+    🔴 Castele / Forturi<br>
+    🟡 Puncte panoramice
+  </div>
+  <script>
+    const map = L.map('map').setView([41.8933203, 12.4829321], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // --- popup frumos ---
+    function popupHtml(p) {
+      return '<div class="popup">' +
+        '<h3>' + (p.name || 'Fără nume') + '</h3>' +
+        (p.address ? '<div class="row"><span class="lbl">📍</span> ' + p.address + '</div>' : '') +
+        (p.opening_hours ? '<div class="row"><span class="lbl">🕒</span> ' + p.opening_hours + '</div>' : '') +
+        (p.price ? '<div class="row"><span class="lbl">💰</span> ' + p.price + '</div>' : '') +
+      '</div>';
+    }
+
+    const iconUrls = {
+      attraction: 'https://maps.gstatic.com/mapfiles/ms2/micons/green-dot.png',
+      museum: 'https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png',
+      park: 'https://maps.gstatic.com/mapfiles/ms2/micons/purple-dot.png',
+      church: 'https://maps.gstatic.com/mapfiles/ms2/micons/orange-dot.png',
+      castle: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
+      view: 'https://maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png'
+    };
+    const makeIcon = url => L.icon({ iconUrl: url, iconSize:[32,32], iconAnchor:[16,32] });
+
+    // --- atracții principale ---
+    const data = {"type":"FeatureCollection","features":[]};
+    const attractions = L.geoJSON(data, {
+      pointToLayer: (f,latlng)=>L.marker(latlng,{icon:makeIcon(iconUrls.attraction)}),
+      onEachFeature: (f,l)=>l.bindPopup(popupHtml(f.properties))
+    }).addTo(map);
+
+    const museums = L.layerGroup(),
+          parks = L.layerGroup(),
+          churches = L.layerGroup(),
+          castles = L.layerGroup(),
+          viewpoints = L.layerGroup();
+
+    const overlays = {
+      "Atracții turistice": attractions,
+      "Muzee": museums,
+      "Parcuri / Natură": parks,
+      "Biserici / Lăcașuri de cult": churches,
+      "Castele / Forturi": castles,
+      "Puncte panoramice": viewpoints
+    };
+    L.control.layers(null, overlays, {collapsed:false}).addTo(map);
+    if(attractions.getLayers().length) map.fitBounds(attractions.getBounds());
+
+    // --- funcție universală de încărcare ---
+    function loadCategory(layer, cats, iconUrl, limit=10) {
+      if(layer._loaded) return; layer._loaded = true;
+      const url = 'https://api.geoapify.com/v2/places?categories=' + encodeURIComponent(cats) +
+                  '&filter=circle:12.4829321,41.8933203,15000&limit=' + limit +
+                  '&bias=rank&apiKey=11975cd99c274ad29b6662aa1ab636f6';
+      fetch(url)
+        .then(r => r.json())
+        .then(json => {
+          const results = (json.features || []).filter(f =>
+            (f.properties?.rank?.importance ?? 0) >= 0.6 ||
+            (f.properties?.rank?.popularity ?? 0) >= 6
+          );
+          const icon = makeIcon(iconUrl);
+          const g = L.geoJSON(results, {
+            pointToLayer:(f,latlng)=>L.marker(latlng,{icon}),
+            onEachFeature:(f,l)=>l.bindPopup(popupHtml(f.properties))
+          });
+          g.addTo(layer);
+          if(!map.hasLayer(layer)) map.addLayer(layer);
+        })
+        .catch(console.error);
+    }
+
+    // --- toate categoriile, cu toate sinonimele posibile ---
+    map.on('overlayadd', e=>{
+      if(e.name==='Muzee')
+        loadCategory(museums,'entertainment.museum,tourism.museum,culture.museum,entertainment.gallery,tourism.gallery',iconUrls.museum);
+      if(e.name==='Parcuri / Natură')
+        loadCategory(parks,'leisure.park,leisure.garden,leisure.nature_reserve,recreation.park,natural.reserve,natural.forest,natural.water,leisure.playground,leisure.recreation_ground',iconUrls.park);
+      if(e.name==='Biserici / Lăcașuri de cult')
+        loadCategory(churches,'religion.church,religion.temple,religion.mosque,religion.shrine,religion.synagogue,tourism.place_of_worship,heritage.religious',iconUrls.church);
+      if(e.name==='Castele / Forturi')
+        loadCategory(castles,'tourism.castle,historic.castle,fortification.castle,historic.fort,historic.archaeological_site,heritage.castle',iconUrls.castle);
+      if(e.name==='Puncte panoramice')
+        loadCategory(viewpoints,'natural.viewpoint,tourism.viewpoint,natural.peak,natural.hill,natural.mountain,natural.cliff',iconUrls.view);
+    });
+  </script>
+</body>
+</html>
