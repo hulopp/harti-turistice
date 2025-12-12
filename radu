@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rocar Tur - Transport Sigur pentru Școli</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f4f4;">
+        <tr>
+            <td align="center">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border: 1px solid #dddddd;">
+                    
+                    <tr>
+                        <td align="center" style="padding: 20px 0 0 0; background-color: #4a90e2; color: white;">
+                            <h1 style="font-size: 24px; margin-bottom: 5px; padding: 0 10px;">
+                                Siguranță & Profesionalism:
+                            </h1>
+                            <p style="font-size: 18px; margin-top: 0; padding: 0 10px 15px 10px; font-weight: 300;">
+                                Călătorii Fără Grijă Pentru Elevi
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td align="center">
+                            <img src="[URL_IMAGINE_AUTOCARUL_ROCAR_TUR]" alt="Autocar Rocar Tur în fața unei școli" width="100%" style="display: block; max-width: 600px; height: auto;">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 20px; background-color: #ffffff;"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 0 10px 20px 10px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td valign="top" width="33.33%" style="padding: 0 5px;">
+                                        <h3 style="color: #4a90e2; font-size: 16px; margin-bottom: 10px; text-align: center;">De Ce Rocar Tur?</h3>
+                                        <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.6;">
+                                            <li style="margin-bottom: 5px;">&#x1F6C0; Flotă Modernă</li>
+                                            <li style="margin-bottom: 5px;">&#x1F468; Personal Calificat</li>
+                                            <li style="margin-bottom: 5px;">&#x2B50; 20+ Ani Experiență</li>
+                                            <li style="margin-bottom: 5px;">&#x1F4B0; Prețuri Competitive</li>
+                                        </ul>
+                                    </td>
+                                    
+                                    <td valign="top" width="33.33%" style="padding: 0 5px;">
+                                        <h3 style="color: #4a90e2; font-size: 16px; margin-bottom: 10px; text-align: center;">Ce Oferim?</h3>
+                                        <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.6;">
+                                            <li style="margin-bottom: 5px;">&#x1F4DA; Excursii Școlare</li>
+                                            <li style="margin-bottom: 5px;">&#x1F3D5; Tabere</li>
+                                            <li style="margin-bottom: 5px;">&#x1F3C1; Deplasări Evenimente</li>
+                                            <li style="margin-bottom: 5px;">&#x23F1; Transport Regulat</li>
+                                        </ul>
+                                    </td>
+
+                                    <td valign="top" width="33.33%" style="padding: 0 5px;">
+                                        <h3 style="color: #4a90e2; font-size: 16px; margin-bottom: 10px; text-align: center;">Beneficii Cheie</h3>
+                                        <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 14px; line-height: 1.6;">
+                                            <li style="margin-bottom: 5px;">&#x1F512; Siguranță Garantată</li>
+                                            <li style="margin-bottom: 5px;">&#x2614; Confort Maxim</li>
+                                            <li style="margin-bottom: 5px;">&#x1F4A1; Soluții Personalizate</li>
+                                            <li style="margin-bottom: 5px;">&#x1F91D; Partener De Încredere</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="padding: 10px 20px 20px 20px;">
+                            <a href="[LINK_DE_SOLICITARE_OFERTA]" style="display: block; width: 80%; max-width: 300px; background-color: #4a90e2; color: #ffffff; text-align: center; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 16px;">
+                                Să călătorim împreună
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="padding: 0 20px 20px 20px; font-size: 12px; color: #666666;">
+                            Telefon: **0740098497**<br>
+                            Echipa **Rocar Tur**
+                        </td>
+                    </tr>
+
+                </table>
+                </td>
+        </tr>
+    </table>
+
+</body>
+</html>
